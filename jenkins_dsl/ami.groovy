@@ -24,6 +24,12 @@ def amis = [
                   "ami_profile":"tomcat8",
                   "branch" : "master"
                 ],
+              "ami-jenkins2.0":
+                [
+                  "name":"jenkins2.0",
+                  "ami_profile":"jenkins2.0",
+                  "branch" : "master"
+                ],
               "ami-jetty8":
                 [ 
                   "name":"jetty8",
