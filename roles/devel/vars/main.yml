@@ -1,7 +1,6 @@
 ---
-vars:
-  dev_tools == "@Development Tools" 
+dev_tools: "@Development Tools" 
   when: ansible_distribution == "Amazon" or ansible_distribution == "Red Hat Enterprise Linux"
 
-  dev_tools == "build-essential"
+dev_tools: "build-essential"
   when: ansible_distribution == "Ubuntu"
