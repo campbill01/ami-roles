@@ -1,0 +1,8 @@
+---
+
+- name: Add Mongo repo GPG key
+  command: rpm --import {{ mongo_repo_key_url }}
+
+- name: Ensure Mongo Yum repo present
+  get_url: url={{ mongo_repo_url }} dest={{ mongo_repo_destination }} mode=0644
+
