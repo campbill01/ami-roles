@@ -1,0 +1,8 @@
+---
+
+- name: Add Mongo repo key present
+  apt_key: keyserver: {{ mongo_repo_key_url }} id: EA312927 state: present
+
+- name: Add Mongo repository
+  apt_repository: repo: {{ mongo_repo_key_url }} state: present update_cache: yes
+

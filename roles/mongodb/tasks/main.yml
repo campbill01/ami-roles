@@ -1,7 +1,18 @@
 ---
 
-- name: add repository
-  copy: src=etc/yum.repos.d/mongo.repo dest=/etc/yum.repos.d/mongo.repo owner=root mode=0644
+- name: Set distro-specific variables
+  include_vars: '{{ item }}'
+  with_first_found:
+    - '{{ ansible_distribution }}.yml'
+    -  Default.yml 
+
+- name: Setup Amazon linux
+  include: Amazon.yml
+  when: ansible_distribution== 'Amazon'
+
+- name: Setup Ubuntu
+  include: Ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
 
 - name: install mongo
   package: name=mongodb-org state=present
