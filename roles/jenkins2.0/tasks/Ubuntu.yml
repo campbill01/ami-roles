@@ -2,7 +2,7 @@
 
 - name: Add Jenkins repo key present
   apt_key:
-    url: {{ jenkins_repo_key_url }}
+    url: "{{ jenkins_repo_key_url }}"
     state: present
   tags:
   - system
@@ -11,7 +11,7 @@
 
 - name: Add Jenkins repository
   apt_repository:
-    repo: {{ jenkins_repo_key_url }}
+    repo: "{{ jenkins_repo_key_url }}"
     state: present
     update_cache: yes
   tags:
