@@ -1,6 +1,6 @@
 ---
 
-- include_vars: Default.yml
+- include_vars: Ubuntu.yml
 
 - name: install unzip
   package: name=unzip state=present

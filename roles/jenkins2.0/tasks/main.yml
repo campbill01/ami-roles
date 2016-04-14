@@ -20,6 +20,9 @@
 - name: Remove AJP in startup
   replace: dest=/etc/init.d/jenkins regexp='^\[ -n "\$JENKINS_AJP' replace='#[ -n "$JENKINS_AJP'
 
+- name: ensure local facts.d directory exists
+  file: path={{ role_local_facts }} state=directory mode=0755
+
 - name: Local Ansible facts
   template: src={{ role_local_facts }}/jenkins.fact dest=/{{ role_local_facts }}/jenkins.fact owner=root group=root mode=0644
 

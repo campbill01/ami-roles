@@ -1,6 +1,6 @@
 ---
 
-- include_vars: Default.yml
+- include_vars: Ubuntu.yml
   - system
   - jenkins
   - build
