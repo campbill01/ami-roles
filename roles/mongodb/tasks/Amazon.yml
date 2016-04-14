@@ -1,8 +1,6 @@
 ---
 
-- name: Add Mongo repo GPG key
-  command: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 
-- name: Ensure Mongo Yum repo present
-  yum: name={{mongo_repo_url}} state=present
+- name: add repository
+  copy: src=etc/yum.repos.d/mongo.repo dest=/etc/yum.repos.d/mongo.repo owner=root mode=0644
 
