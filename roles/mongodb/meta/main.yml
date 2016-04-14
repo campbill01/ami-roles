@@ -1,0 +1,4 @@
+---
+
+dependencies:
+- gnupg-curl
