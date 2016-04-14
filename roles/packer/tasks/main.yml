@@ -7,6 +7,10 @@
   - system
   - packer
 
+- name: Install unzip
+  package: name=unzip state=present
+  when: ansible_distribution == 'Ubuntu'
+
 - name: Extract packer
   command: unzip /tmp/packer{{ packer_version }}.zip -d /usr/bin chdir=/tmp
   tags:
