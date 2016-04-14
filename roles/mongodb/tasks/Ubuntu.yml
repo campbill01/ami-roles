@@ -1,5 +1,7 @@
 ---
 
+- include_vars: Ubuntu.yml
+
 - name: Install gnupg-curl
   package: name=gnupg-curl state=present
 

@@ -10,6 +10,7 @@
 - name: Install unzip
   package: name=unzip state=present
   when: ansible_distribution == 'Ubuntu'
+  tags:
   - build
   - system
   - packer

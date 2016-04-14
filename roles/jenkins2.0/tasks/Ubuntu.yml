@@ -1,5 +1,7 @@
 ---
 
+- include_vars: Default.yml
+
 - name: install unzip
   package: name=unzip state=present
 

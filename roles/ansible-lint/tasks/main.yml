@@ -1,5 +1,7 @@
 ---
 
+- include_vars: Default.yml
+
 - name: Pip install ansible-lint
   pip: name=ansible-lint
   tags:
