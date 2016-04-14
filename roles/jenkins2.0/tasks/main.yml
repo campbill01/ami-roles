@@ -2,7 +2,7 @@
 
 - name: Set distro-specific variables
   include_vars: '{{ item }}'
-  with_first_found: {'{{ ansible_distribution }}.yml', Default.yml}
+  with_first_found: {'../vars/{{ ansible_distribution }}.yml', '../vars/Default.yml'}
 
 - name: Setup Amazon linux
   include: Amazon.yml
