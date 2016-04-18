@@ -1,0 +1,8 @@
+---
+
+- name: Install jetty
+  package: name=jetty8 state=present
+  tags:
+    - system
+    - jetty
+    - build
