@@ -1,0 +1,15 @@
+---
+
+- name: Update package list
+  apt: update_cache=yes
+  tags:
+    - build
+    - system
+    - ansible-lint
+
+- name: Install python-dev
+  package: name=python-dev state=present
+  tags:
+    - build
+    - system
+    - ansible-lint

@@ -1,12 +1,19 @@
 ---
 
+- name: Setup Ubuntu
+  include: Ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+  tags:
+    - build
+    - system
+    - ansible-lint
+
 - name: Pip install ansible-lint
   pip: name=ansible-lint
   tags:
     - build
     - system
     - ansible-lint
-
 
 - name: Link to usr/bin
   file: src=/usr/local/bin/ansible-lint dest=/usr/bin/ansible-lint state=link owner=root group=root
