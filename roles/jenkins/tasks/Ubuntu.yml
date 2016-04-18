@@ -21,7 +21,7 @@
   - build
 
 - name: Add Jenkins repository
-  apt_repository: repo={{ jenkins_repo_url }}state=present update_cache=yes
+  apt_repository: repo={{ jenkins_repo_url }} state=present update_cache=yes
   tags:
   - system
   - jenkins
