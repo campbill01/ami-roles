@@ -4,64 +4,64 @@
 // HVM (SSD) EBS-Backed 64-bit --  Region: US East N. Virginia
 // Ubuntu 15.10 wily - https://cloud-images.ubuntu.com/locator/ec2/
 // HVM (SSD) EBS-Backed 64-bit --  Region: US East N. Virginia
-def ubuntu_ami = "ami-8b9087e1"
+def ubuntu_ami = "ami-fce3c696"
 def amazon_ami = "ami-60b6c60a"
-def git_repo = "https://github.com/kenzanlabs/ami-roles.git"
+def git_repo = "https://github.com/campbill01/ami-roles.git"
 
 def amis = [  
               "ami-nexus":
                 [
                   "name":"nexus",
                   "ami_profile":"nexus",
-                  "branch" : "master"
+                  "branch" : "package-test"
                 ],
               "ami-tomcat7":
                 [ 
                   "name":"tomcat7",
                   "ami_profile":"tomcat7",
-                  "branch" : "master"
+                  "branch" : "package-test"
                 ],
               "ami-tomcat8":
                 [ 
                   "name":"tomcat8",
                   "ami_profile":"tomcat8",
-                  "branch" : "master"
+                  "branch" : "package-test"
                 ],
               "ami-jetty8":
                 [ 
                   "name":"jetty8",
                   "ami_profile":"jetty8",
-                  "branch" : "master"
+                  "branch" : "package-test"
                 ],
               "ami-base":
                 [ 
                   "name":"base",
                   "ami_profile":"base",
-                  "branch" : "master"
+                  "branch" : "package-test"
                 ],
               "ami-karyon":
                 [ 
                   "name":"karyon",
                   "ami_profile":"karyon",
-                  "branch" : "master"
+                  "branch" : "package-test"
                 ],
               "ami-haproxy":
                 [
                   "name":"haproxy",
                   "ami_profile":"haproxy",
-                  "branch" : "master"
+                  "branch" : "package-test"
                 ],
               "ami-jenkins2.0":
                 [
                   "name":"jenkins2.0",
                   "ami_profile":"jenkins2.0",
-                  "branch" : "master"
+                  "branch" : "package-test"
                 ],
               "ami-mongodb":
                 [
                   "name":"mongodb",
                   "ami_profile":"mongodb",
-                  "branch" : "master"
+                  "branch" : "package-test"
                 ]
             ]
 
