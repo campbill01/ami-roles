@@ -13,61 +13,61 @@ def amis = [
                 [
                   "name":"nexus",
                   "ami_profile":"nexus",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ],
               "ami-tomcat7":
                 [ 
                   "name":"tomcat7",
                   "ami_profile":"tomcat7",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ],
               "ami-tomcat8":
                 [ 
                   "name":"tomcat8",
                   "ami_profile":"tomcat8",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ],
               "ami-jetty8":
                 [ 
                   "name":"jetty8",
                   "ami_profile":"jetty8",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ],
               "ami-base":
                 [ 
                   "name":"base",
                   "ami_profile":"base",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ],
               "ami-karyon":
                 [ 
                   "name":"karyon",
                   "ami_profile":"karyon",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ],
               "ami-haproxy":
                 [
                   "name":"haproxy",
                   "ami_profile":"haproxy",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ],
               "ami-jenkins":
                 [
                   "name":"jenkins",
                   "ami_profile":"jenkins",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ],
               "ami-jenkins2.0":
                 [
                   "name":"jenkins2.0",
                   "ami_profile":"jenkins2.0",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ],
               "ami-mongodb":
                 [
                   "name":"mongodb",
                   "ami_profile":"mongodb",
-                  "branch" : "package-test"
+                  "branch" : "package"
                 ]
             ]
 
