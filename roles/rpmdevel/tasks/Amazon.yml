@@ -1,0 +1,8 @@
+---
+
+- include_vars: Default.yml
+  tags:
+    - system
+    - build
+    - rpmdevel
+

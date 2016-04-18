@@ -1,0 +1,19 @@
+---
+
+- name: Update cache
+  apt: update_cache=yes
+  tags:
+  - system
+  - nginx
+  - build
+
+- name: Nginx main config nginx.conf for Ubuntu
+  template: src=etc/nginx/nginx_ubuntu.conf dest=/etc/nginx/nginx.conf
+  notify:
+  - restart nginx
+  when: ansible_distribution == 'Ubuntu'
+  tags:
+  - config
+  - nginx-config
+  - build
+  - update

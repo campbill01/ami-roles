@@ -1,7 +1,15 @@
 ---
 
-- name: Update cache
-  apt: update_cache=yes
+- name: Setup Amazon linux
+  include: Amazon.yml
+  when: ansible_distribution == 'Amazon'
+  tags:
+  - system
+  - nginx
+  - build
+
+- name: Setup Ubuntu
+  include: Ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
   tags:
   - system
@@ -15,16 +23,6 @@
   - system
   - nginx
   - build
-
-- name: Nginx main config nginx.conf
-  template: src=etc/nginx/nginx.conf dest=/etc/nginx/nginx.conf
-  notify:
-  - restart nginx
-  tags:
-  - config
-  - nginx-config
-  - build
-  - update
 
 - name: Create instance_conf
   copy: src={{ instance_conf_bin }} dest=/{{ instance_conf_bin }} mode=0755 owner=root group=root
