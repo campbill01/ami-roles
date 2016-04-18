@@ -1,4 +1,8 @@
 ---
 
+- name: restart nginx
+  sudo: yes
+  service: name=nginx state=restarted
+
 - name: restart jenkins
   service: name=jenkins state=restarted
