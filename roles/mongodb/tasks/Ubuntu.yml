@@ -10,3 +10,7 @@
 
 - name: Add Mongo repository
   apt_repository: repo={{ mongo_repo_url }} state=present update_cache=yes
+
+- name: add service definition for Ubuntu 15.10
+  copy: src=lib/systemd/system/mongod.service dest=/lib/systemd/system/mongod.service owner=root mode=0644
+
