@@ -51,6 +51,12 @@ def amis = [
                   "ami_profile":"haproxy",
                   "branch" : "package-test"
                 ],
+              "ami-jenkins":
+                [
+                  "name":"jenkins",
+                  "ami_profile":"jenkins",
+                  "branch" : "package-test"
+                ],
               "ami-jenkins2.0":
                 [
                   "name":"jenkins2.0",
