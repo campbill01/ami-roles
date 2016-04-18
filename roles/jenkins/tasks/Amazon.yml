@@ -1,6 +1,6 @@
 ---
 
-- include_vars: Default.yml
+- include_vars: Amazon.yml
   tags:
   - system
   - jenkins

@@ -1,14 +1,14 @@
 ---
 
 - include_vars: Ubuntu.yml
- tags:
+  tags:
   - system
   - jenkins
   - build
 
 - name: install unzip
   package: name=unzip state=present
- tags:
+  tags:
   - system
   - jenkins
   - build
