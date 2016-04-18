@@ -1,10 +1,6 @@
 ---
 
-- include_vars: Amazon.yml
-  tags:
-  - system
-  - jenkins
-  - build
+- include_vars: Defalt.yml
 
 - name: Add Jenkins repo GPG key
   command: rpm --import {{ jenkins_repo_key_url }}
