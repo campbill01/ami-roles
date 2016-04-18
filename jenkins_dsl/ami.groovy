@@ -4,7 +4,7 @@
 // HVM (SSD) EBS-Backed 64-bit --  Region: US East N. Virginia
 // Ubuntu 15.10 wily - https://cloud-images.ubuntu.com/locator/ec2/
 // HVM (SSD) EBS-Backed 64-bit --  Region: US East N. Virginia
-def ubuntu_ami = "ami-8b9087e1"
+def ubuntu_ami = "ami-fce3c696"
 def amazon_ami = "ami-60b6c60a"
 def git_repo = "https://github.com/kenzanlabs/ami-roles.git"
 
