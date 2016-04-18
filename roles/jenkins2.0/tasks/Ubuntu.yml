@@ -1,9 +1,17 @@
 ---
 
 - include_vars: Ubuntu.yml
+ tags:
+  - system
+  - jenkins
+  - build
 
 - name: install unzip
   package: name=unzip state=present
+ tags:
+  - system
+  - jenkins
+  - build
 
 - name: Add Jenkins repo key present
   apt_key:
