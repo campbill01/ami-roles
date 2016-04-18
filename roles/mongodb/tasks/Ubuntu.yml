@@ -10,4 +10,3 @@
 
 - name: Add Mongo repository
   apt_repository: repo={{ mongo_repo_url }} state=present update_cache=yes
-

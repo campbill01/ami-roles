@@ -1,6 +1,7 @@
 ---
 
 - include_vars: Default.yml
+  tags:
   - system
   - jenkins
   - build

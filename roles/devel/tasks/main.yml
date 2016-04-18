@@ -3,6 +3,7 @@
 - name: Setup Amazon linux
   include: Amazon.yml
   when: ansible_distribution == 'Amazon'
+  tags:
     - system
     - build
     - packages
@@ -10,6 +11,7 @@
 - name: Setup Ubuntu
   include: Ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
+  tags:
     - system
     - build
     - packages

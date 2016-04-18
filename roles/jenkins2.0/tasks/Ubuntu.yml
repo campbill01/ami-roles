@@ -16,7 +16,7 @@
 
 - name: Add Jenkins repository
   apt_repository:
-    repo: "{{ jenkins_repo_key_url }}"
+    repo: "{{ jenkins_repo_url }}"
     state: present
     update_cache: yes
   tags:
