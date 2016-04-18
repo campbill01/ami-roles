@@ -58,9 +58,6 @@
 - name: restart jenkins
   command: service jenkins restart
 
-- name: restart Nginx proxy
-  command: service nginx restart
-
 # Jenkins2.0 uses security out of the box and overwrites config file on startup, adding plugins in groovy script
 # Update Jenkins and install configured plugins.
 #- include: plugins.yml
