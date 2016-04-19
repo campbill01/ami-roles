@@ -13,85 +13,85 @@ def amis = [
                 [
                   "name":"nexus",
                   "ami_profile":"nexus",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-tomcat7":
                 [ 
                   "name":"tomcat7",
                   "ami_profile":"tomcat7",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-tomcat8":
                 [ 
                   "name":"tomcat8",
                   "ami_profile":"tomcat8",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-jetty8":
                 [ 
                   "name":"jetty8",
                   "ami_profile":"jetty8",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-base":
                 [ 
                   "name":"base",
                   "ami_profile":"base",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-karyon":
                 [ 
                   "name":"karyon",
                   "ami_profile":"karyon",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-haproxy":
                 [
                   "name":"haproxy",
                   "ami_profile":"haproxy",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-jenkins":
                 [
                   "name":"jenkins",
                   "ami_profile":"jenkins",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-jenkins2.0":
                 [
                   "name":"jenkins2.0",
                   "ami_profile":"jenkins2.0",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-mongodb":
                 [
                   "name":"mongodb",
                   "ami_profile":"mongodb",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-oraclejdk8":
                 [
                   "name":"oraclejdk8",
                   "ami_profile":"oraclejdk8",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-jenkins-user":
                 [
                   "name":"jenkins-user",
                   "ami_profile":"jenkins-user",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-nginx":
                 [
                   "name":"nginx",
                   "ami_profile":"nginx",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ],
               "ami-packer":
                 [
                   "name":"packer",
                   "ami_profile":"packer",
-                  "branch" : "package"
+                  "branch" : "multi-os"
                 ]
             ]
 
