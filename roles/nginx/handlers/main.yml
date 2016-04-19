@@ -1,8 +1,5 @@
 ---
 
-- name: restart nginx
-  command: service nginx restart
-
 - name: reload nginx
   service: name=nginx state=reloaded
 
