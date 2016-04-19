@@ -68,6 +68,26 @@ def amis = [
                   "name":"mongodb",
                   "ami_profile":"mongodb",
                   "branch" : "package"
+                ],
+                [
+                  "name":"oraclejdk8",
+                  "ami_profile":"oraclejdk8",
+                  "branch" : "package"
+                ],
+                [
+                  "name":"jenkins-user",
+                  "ami_profile":"jenkins-user",
+                  "branch" : "package"
+                ],
+                [
+                  "name":"nginx",
+                  "ami_profile":"nginx",
+                  "branch" : "package"
+                ],
+                [
+                  "name":"packer",
+                  "ami_profile":"packer",
+                  "branch" : "package"
                 ]
             ]
 
