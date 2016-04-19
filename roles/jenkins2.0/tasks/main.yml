@@ -55,8 +55,6 @@
 - name: create groovy init script
   action: copy src=init/HOOK.groovy dest=/var/lib/jenkins/init.groovy owner=jenkins
 
-- name: restart jenkins
-  command: service jenkins restart
 
 - name: Get the jenkins-cli jarfile from the Jenkins server.
   get_url:
