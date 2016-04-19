@@ -5,7 +5,7 @@
 // Ubuntu 15.10 wily - https://cloud-images.ubuntu.com/locator/ec2/
 // HVM (SSD) EBS-Backed 64-bit --  Region: US East N. Virginia
 def ubuntu_ami = "ami-fce3c696"
-def amazon_ami = "ami-60b6c60a"
+def amazon_ami = "ami-08111162"
 def git_repo = "https://github.com/campbill01/ami-roles.git"
 
 def amis = [  
