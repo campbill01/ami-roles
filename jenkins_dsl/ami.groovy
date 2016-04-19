@@ -69,8 +69,8 @@ def amis = [
                   "ami_profile":"mongodb",
                   "branch" : "package"
                 ],
-                [
               "ami-oraclejdk8":
+                [
                   "name":"oraclejdk8",
                   "ami_profile":"oraclejdk8",
                   "branch" : "package"
