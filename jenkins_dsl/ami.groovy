@@ -70,20 +70,24 @@ def amis = [
                   "branch" : "package"
                 ],
                 [
+              "ami-oraclejdk8":
                   "name":"oraclejdk8",
                   "ami_profile":"oraclejdk8",
                   "branch" : "package"
                 ],
+              "ami-jenkins-user":
                 [
                   "name":"jenkins-user",
                   "ami_profile":"jenkins-user",
                   "branch" : "package"
                 ],
+              "ami-nginx":
                 [
                   "name":"nginx",
                   "ami_profile":"nginx",
                   "branch" : "package"
                 ],
+              "ami-packer":
                 [
                   "name":"packer",
                   "ami_profile":"packer",
