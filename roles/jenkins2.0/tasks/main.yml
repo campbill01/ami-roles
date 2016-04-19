@@ -27,6 +27,8 @@
 
 - name: Nginx proxy
   template: src=etc/nginx/conf.d/jenkins.conf dest=/etc/nginx/conf.d/jenkins.conf owner=root group=root mode=0644
+  notify:
+  - restart nginx
 
 - name: create jenkins directory job
   action: file path=/var/lib/jenkins/jobs/{{item}} owner=jenkins state=directory
