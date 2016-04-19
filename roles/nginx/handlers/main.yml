@@ -1,4 +1,7 @@
 ---
+- name: restart nginx
+  service: name=nginx state=restarted
+  when: update
 
 - name: reload nginx
   service: name=nginx state=reloaded

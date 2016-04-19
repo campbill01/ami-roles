@@ -45,3 +45,10 @@
   - config
   - jenkins-config
   - build
+
+- name: restart Nginx proxy
+  command: service nginx restart
+  tags:
+  - config
+  - jenkins-config
+  - build

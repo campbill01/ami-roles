@@ -18,14 +18,8 @@
 
 - name: Nginx main config nginx.conf
   template: src=etc/nginx/nginx.conf dest=/etc/nginx/nginx.conf
-  tags:
-  - config
-  - nginx-config
-  - build
-  - update
-
-- name: restart Nginx proxy
-  command: service nginx restart
+  notify:
+  - restart nginx
   tags:
   - config
   - nginx-config
