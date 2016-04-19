@@ -3,7 +3,7 @@
 # Variables
 
 # jenkins Version
-jenkins_version: 1.635
+jenkins_version: 1.598
 
 jenkins_repo_destination: /etc/apt/soruces.list.d/jenkins.list
 jenkins_repo_url: " deb http://pkg.jenkins-ci.org/debian binary/"
