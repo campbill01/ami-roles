@@ -1,6 +1,6 @@
 [Unit]
 Description=Cockroach Database cluster node
-Requires=instance_conf.service
+After=instance_conf.service
 [Service]
 Type=notify
 WorkingDirectory=/var/lib/cockroach
