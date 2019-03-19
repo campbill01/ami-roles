@@ -26,7 +26,7 @@
     - packages
 
 - name: Install epel_repo
-  command: yum install -y /tmp.epel.rpm
+  command: yum install -y /tmp/epel.rpm
   when: ansible_os_family == 'RedHat'
   tags:
     - system
