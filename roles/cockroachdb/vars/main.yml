@@ -1,0 +1,8 @@
+---
+
+# cockroach Version
+cockroach_version: 2.1.6
+cockroach_url: https://binaries.cockroachdb.com/cockroach-v{{ cockroach_version }}.linux-amd64.tgz
+
+cockroach_bin: "/usr/local/bin"
+cockroach_home: "/var/lib/cockroach"

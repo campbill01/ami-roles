@@ -1,0 +1,59 @@
+---
+
+- name: Add group cockroach
+  group: name=cockroach gid=1050 state=present
+  tags:
+    - system
+    - cockroach
+    - build
+
+- name: Add system user cockroach
+  user: name=cockroach comment="cockroachdb Service" uid=1050 group=cockroach
+  tags:
+    - system
+    - cockroach
+    - build
+
+- name: Make directories
+  file: path=/{{ item }} state=directory owner=cockroach group=cockroach
+  with_items:
+    - "{{ cockroach_home }}"
+  tags:
+    - system
+    - cockroach
+    - build
+
+- name: Get binary
+  get_url: url="{{ cockroach_url }}" dest=/tmp
+  tags:
+    - system
+    - cockroach
+    - build
+
+- name: unzip binary
+  unarchive: src=/tmp/cockroach-v{{ cockroach_version }}.linux-amd64.tgz dest=/usr/local/bin remote_src=yes
+  tags:
+    - system
+    - cockroach
+    - build
+
+- name: systemd configuration
+  copy: src=etc/systemd/system/cockroachdb.service dest=/etc/systemd/system/cockroachdb.service owner=root mode=0644
+  tags:
+    - system
+    - cockroach
+    - build
+
+- name: Symlink cockroach_logs
+  file: src=/{{ cockroach_logs }} dest=/var/log/cockroach owner=cockroach group=cockroach state=link
+  tags:
+    - system
+    - cockroach
+    - build
+
+- name: Config on boot
+  copy: src=etc/instance_conf.d/05_cockroachdb dest=/etc/instance_conf.d/05_cockroachdb owner=root group=root mode=0644
+  tags:
+    - config
+    - cockroach-config
+    - build

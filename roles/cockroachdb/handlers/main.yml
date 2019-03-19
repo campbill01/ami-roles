@@ -1,0 +1,11 @@
+---
+
+- name: restart cockroach
+  service: name=cockroach state=restarted
+  when: update
+
+- name: start cockroach
+  service: name=cockroach state=started
+
+- name: stop cockroach
+  service: name=cockroach state=stopped
