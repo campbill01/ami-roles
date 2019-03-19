@@ -38,7 +38,7 @@
     - build
 
 - name: link file
-  file: src=/usr/local/bin/cockroach-v{{ cockroach_version }}linux-amd64/cockroach dest=/usr/local/bin/cockroach state=link
+  file: dest=/usr/local/bin/cockroach-v{{ cockroach_version }}linux-amd64/cockroach src=/usr/local/bin/cockroach state=link
   tags:
     - system 
     - cockroach
