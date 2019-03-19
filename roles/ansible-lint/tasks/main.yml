@@ -14,4 +14,4 @@
     - build
     - system
     - ansible-lint
-  when: ansible_os_family == 'Ubuntu'
+  when: ansible_os_family == 'Debian'

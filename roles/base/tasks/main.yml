@@ -16,6 +16,24 @@
   - build
   - base
 
+- name: Get epelrepo
+  get_url: url="{{ epel_repo }}" dest=/tmp/epel.rpm
+  when: ansible_os_family == 'RedHat'
+  tags:
+    - system
+    - build
+    - base
+    - packages
+
+- name: Install epel_repo
+  command: yum install -y /tmp.epel.rpm
+  when: ansible_os_family == 'RedHat'
+  tags:
+    - system
+    - build
+    - base
+    - packages
+
 - name: Install packages RedHat
   yum: name={{ item }} state=latest enablerepo=epel
   with_items: '{{packages}}'
