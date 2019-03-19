@@ -24,7 +24,7 @@
 		"instance_type": "{{user `instance_type`}}",
 		"ssh_pty": "true",
 		"ssh_timeout": "5m",
-		"ssh_private_ip": "true",
+		"ssh_interface": "private_ip",
 		"ami_name": "{{user `ami_profile`}}_Ubuntu_build-{{user `build`}}_Source-{{user `hvm_amiid`}}_Built-{{user `date`}}",
 		"region": "{{user `region`}}",
 		"tags": {
@@ -48,7 +48,7 @@
 		"instance_type": "{{user `instance_type`}}",
 		"ssh_pty": "true",
 		"ssh_timeout": "5m",
-		"ssh_private_ip": "true",
+		"ssh_interface": "priate_ip",
 		"ami_name": "{{user `ami_profile`}}_Amazon_build-{{user `build`}}_Source-{{user `aws_amiid`}}_Built-{{user `date`}}",
 		"region": "{{user `region`}}",
 		"tags": {
