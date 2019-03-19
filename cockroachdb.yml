@@ -4,9 +4,10 @@
   sudo: yes
 
   vars:
-    ami_profile: base
+    ami_profile: cockroachdb
 
   roles:
   - base
   - cockroachdb
+  - postrun
 
