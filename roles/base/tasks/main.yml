@@ -122,6 +122,7 @@
 
 - name: Link Ansible to usr/bin
   file: src=/usr/local/bin/ansible dest=/usr/bin/ansible state=link owner=root group=root
+  when: ansible_os_family == 'Debian'
   tags:
   - config
   - build
