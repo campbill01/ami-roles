@@ -44,13 +44,6 @@
     - cockroach
     - build
 
-- name: Symlink cockroach_logs
-  file: src=/{{ cockroach_logs }} dest=/var/log/cockroach owner=cockroach group=cockroach state=link
-  tags:
-    - system
-    - cockroach
-    - build
-
 - name: Config on boot
   copy: src=etc/instance_conf.d/05_cockroachdb dest=/etc/instance_conf.d/05_cockroachdb owner=root group=root mode=0644
   tags:
