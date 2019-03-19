@@ -1,0 +1,14 @@
+[Unit]
+Description=Instance config 
+Requires=network.target
+[Service]
+Type=simple
+ExecStart=/usr/bin/instance_conf
+TimeoutStopSec=60
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=Instance_config
+User=root
+[Install]
+Alias=instance_conf instance_config
+WantedBy=default.target

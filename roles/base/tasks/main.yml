@@ -96,6 +96,15 @@
   - base
   - instance_conf
 
+- name: instance_conf systemd configuration
+  copy: src=etc/systemd/system/instance_conf.service dest=/etc/systemd/system/instance_conf.service owner=root mode=0644
+  when: ansible_os_family == 'RedHat'
+  tags:
+    - system
+    - build
+    - base
+    - instance_conf
+
 - name: Forward syslog to graylog
   template: src=etc/rsyslog.d/graylog.conf dest=/etc/rsyslog.d/graylog.conf owner=root group=root mode=0644
   tags:
