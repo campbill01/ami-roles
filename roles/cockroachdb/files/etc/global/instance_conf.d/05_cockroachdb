@@ -6,8 +6,13 @@ if [ ! -f /etc/global/user_data ]; then
   if [ ! -d /etc/global ]; then
     mkdir /etc/global
   fi
-	curl -o /etc/global/user_data -s http://169.254.169.254/latest/user-data
-	chmod 644 /etc/global/user_data
+  # user data takes some time to show up
+  until [[ -f  /etc/global/user_data ]];
+  do
+	 curl -o /etc/global/user_data -s http://169.254.169.254/latest/user-data
+   sleep 10
+	done
+  chmod 644 /etc/global/user_data
 fi
 
 grep '#!' /etc/global/user_data 
@@ -80,3 +85,4 @@ systemctl daemon-reload
 
 # Also create single route53 resource 
 logger "cockroachdb config: Done!"
+systemctl start cockroachdb
