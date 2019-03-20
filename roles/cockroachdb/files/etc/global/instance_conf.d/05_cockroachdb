@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -f /etc/global/user_data ]; then
-	logger "Getting user data"
+	logger "cockroach db config: Getting user data"
 	#
   if [ ! -d /etc/global ]; then
     mkdir /etc/global
@@ -20,10 +20,10 @@ if [[ -z $ID ]]; then
   ID=0
 fi
 
+EC2_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone/ | sed '$s/.$//')
+IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
 
 if [[ ! -z $HOSTEDZONEID ]]; then
-  EC2_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone/ | sed '$s/.$//')
-  IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
   # set or lookup and set domain
   if [[ -z $DOMAIN ]]; then
     DOMAIN=$(cli53 list | grep -A1 $HOSTEDZONEID | grep Name | awk '{ print $2 }')
@@ -39,12 +39,12 @@ if [[ ! -z $HOSTEDZONEID ]]; then
   else
     # see if our ip is in cockroach_list
     if [[ " ${cockroach_list[@]} " =~ "$IP" ]]; then
-  	echo "Not adjusting A record for $dns_resource"
+  	logger "cockroach db config: Not adjusting A record for $dns_resource"
     else
       # add our ip to list
       {% raw %}
       cockroach_list[${#cockroach_list[@]}]=$IP
-      echo "list of ip addresses is ${cockroach_list[@]}"
+      logger "cockroach db config: list of ip addresses is ${cockroach_list[@]}"
       for ip_addr in ${cockroach_list[@]}; 
        do 
          Ip_zone="$dns_resource 300 A $ip_addr"
@@ -66,9 +66,9 @@ if [[ ! -z CROSS_REGION_HOST ]]; then
    PEERS=${PEERS},${CROSS_REGION_HOST}
 fi
 
-grep '\/' $PEERS
-if [[ $? -eq 1 ]]; then
-  echo "Something has gone wrong, setting peers to local ip"
+echo $PEERS | grep '\/'
+if [[ $? -eq 0 ]]; then
+  logger "cockroach db config: Something has gone wrong, setting peers to local ip"
   PEERS=${IP}
 fi
 
@@ -78,4 +78,4 @@ systemctl daemon-reload
 
 
 # Also create single route53 resource 
-echo "Done!"
+logger "cockroach db config: Done!"
