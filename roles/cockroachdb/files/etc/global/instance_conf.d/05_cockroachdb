@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -f /etc/global/user_data ]; then
-	logger "cockroach db config: Getting user data"
+	logger "cockroachdb config: Getting user data"
 	#
   if [ ! -d /etc/global ]; then
     mkdir /etc/global
@@ -39,12 +39,12 @@ if [[ ! -z $HOSTEDZONEID ]]; then
   else
     # see if our ip is in cockroach_list
     if [[ " ${cockroach_list[@]} " =~ "$IP" ]]; then
-  	logger "cockroach db config: Not adjusting A record for $dns_resource"
+  	logger "cockroachdb config: Not adjusting A record for $dns_resource"
     else
       # add our ip to list
       {% raw %}
       cockroach_list[${#cockroach_list[@]}]=$IP
-      logger "cockroach db config: list of ip addresses is ${cockroach_list[@]}"
+      logger "cockroachdb config: list of ip addresses is ${cockroach_list[@]}"
       for ip_addr in ${cockroach_list[@]}; 
        do 
          Ip_zone="$dns_resource 300 A $ip_addr"
@@ -68,14 +68,15 @@ fi
 
 echo $PEERS | grep '\/'
 if [[ $? -eq 0 ]]; then
-  logger "cockroach db config: Something has gone wrong, setting peers to local ip"
+  logger "cockroachdb config: Something has gone wrong, setting peers to local ip"
   PEERS=${IP}
 fi
 
 # update service with peer list
+logger "cockroachdb config: seting peers in start script to ${PEERS}"
 sed -i "s/PEERS/${PEERS}/" /etc/systemd/system/cockroachdb.service
 systemctl daemon-reload
 
 
 # Also create single route53 resource 
-logger "cockroach db config: Done!"
+logger "cockroachdb config: Done!"
