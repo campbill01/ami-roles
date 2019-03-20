@@ -1,62 +1,81 @@
 #!/bin/bash
 
-if [ ! -f /etc/user_data ]; then
+if [ ! -f /etc/global/user_data ]; then
 	logger "Getting user data"
 	#
-	curl -o /etc/user_data -s http://169.254.169.254/latest/user-data
-	chmod 644 /etc/user_data
-fi
-
-grep '#!' /etc/user_data 
-if [[ $? -eq 1 ]]; then
-  . /etc/user_data
-fi
-
-#get my id
-if [[ -z $ID ]]; then 
-  echo "Node ID not set, exiting setup"
-  exit 1
-fi
-
-EC2_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone/ | sed '$s/.$//')
-IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
-TLD=$(cli53 list | grep $HOSTEDZONEID | awk '{ print $2 }')
-dns_resource="cockroach.node-${ID}.${EC2_REGION}"
-
-declare -a cockroach_list=($(host cockroach.${EC2_REGION}.${TLD} |  awk ' { print $4 }'))
-if [[ $cockroach_list == 'found:' ]]; then
-  #Multi-A record does not exist. We are the first in a new cluster
-  PEERS=${IP},cockroach.node-2.${EC2_REGION}.${TLD},cockroach.node-3.${EC2_REGION}.${TLD}
-  unset cockroach_list
-  cli53 rrcreate --replace "$HOSTEDZONEID cockroach.${EC2_REGION} 300 A $IP"
-else
-  # see if our ip is in cockroach_list
-  if [[ " ${cockroach_list[@]} " =~ "$IP" ]]; then
-	echo "Not adjusting A record for $dns_resource"
-  else
-    # add our ip to list
-    {% raw %}
-    cockroach_list[${#cockroach_list[@]}]=$IP
-    echo "list of ip addresses is ${cockroach_list[@]}"
-    for ip_addr in ${cockroach_list[@]}; 
-     do 
-       Ip_zone="$dns_resource 300 A $ip_addr"
-       zone_array+=("$Ip_zone")
-       #zone_array[${#zone_array[@]}]=$Ip_zone
-       {% endraw %}
-     done
-  cli53 rrcreate --replace $HOSTEDZONEID "${zone_array[@]}"
+  if [ ! -d /etc/global ]; then
+    mkdir /etc/global
   fi
+	curl -o /etc/global/user_data -s http://169.254.169.254/latest/user-data
+	chmod 644 /etc/global/user_data
+fi
+
+grep '#!' /etc/global/user_data 
+if [[ $? -eq 1 ]]; then
+  . /etc/global/user_data
+fi
+
+#I need an ID
+if [[ -z $ID ]]; then 
+  ID=0
+fi
+
+
+if [[ ! -z $HOSTEDZONEID ]]; then
+  EC2_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone/ | sed '$s/.$//')
+  IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
+  # set or lookup and set domain
+  if [[ -z $DOMAIN ]]; then
+    DOMAIN=$(cli53 list | grep -A1 $HOSTEDZONEID | grep Name | awk '{ print $2 }')
+  fi
+  dns_resource="cockroach.node-${ID}.${EC2_REGION}"
+
+  declare -a cockroach_list=($(host cockroach.${EC2_REGION}.${DOMAIN} |  awk ' { print $4 }'))
+  if [[ $cockroach_list == 'found:' ]]; then
+    #Multi-A record does not exist. We are the first in a new cluster
+    PEERS=${IP},cockroach.node-2.${EC2_REGION}.${DOMAIN},cockroach.node-3.${EC2_REGION}.${DOMAIN}
+    unset cockroach_list
+    cli53 rrcreate --replace "-x 300 $HOSTEDZONEID cockroach.${EC2_REGION} A $IP"
+  else
+    # see if our ip is in cockroach_list
+    if [[ " ${cockroach_list[@]} " =~ "$IP" ]]; then
+  	echo "Not adjusting A record for $dns_resource"
+    else
+      # add our ip to list
+      {% raw %}
+      cockroach_list[${#cockroach_list[@]}]=$IP
+      echo "list of ip addresses is ${cockroach_list[@]}"
+      for ip_addr in ${cockroach_list[@]}; 
+       do 
+         Ip_zone="$dns_resource 300 A $ip_addr"
+         zone_array+=("$Ip_zone")
+         #zone_array[${#zone_array[@]}]=$Ip_zone
+         {% endraw %}
+       done
+    cli53 rrcreate --replace $HOSTEDZONEID "${zone_array[@]}"
+    fi
+  fi
+  cli53 rrcreate --replace "-x 300 $HOSTEDZONEID ${dns_resource} A ${IP}"
+else
+  # I'm alone
+  PEERS=${IP}
 fi
 
 # Add node from other 'datacenter' if defined
 if [[ ! -z CROSS_REGION_HOST ]]; then
    PEERS=${PEERS},${CROSS_REGION_HOST}
 fi
+
+grep '\/' $PEERS
+if [[ $? -eq 1 ]]; then
+  echo "Something has gone wrong, setting peers to local ip"
+  PEERS=${IP}
+fi
+
 # update service with peer list
 sed -i "s/PEERS/${PEERS}/" /etc/systemd/system/cockroachdb.service
 systemctl daemon-reload
 
+
 # Also create single route53 resource 
-cli53 rrcreate --replace "$HOSTEDZONEID ${dns_resource} 300 A ${IP}"
 echo "Done!"
