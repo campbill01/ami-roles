@@ -59,7 +59,7 @@
     - build
 
 - name: Config on boot
-  copy: src=etc/global/instance_conf.d/05_cockroachdb dest=/etc/global/instance_conf.d/05_cockroachdb owner=root group=root mode=0644
+  template: src=etc/global/instance_conf.d/05_cockroachdb dest=/etc/global/instance_conf.d/05_cockroachdb owner=root group=root mode=0644
   tags:
     - config
     - cockroach-config
