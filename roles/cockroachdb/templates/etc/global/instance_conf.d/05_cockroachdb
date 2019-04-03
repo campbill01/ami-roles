@@ -42,7 +42,7 @@ if [[ ! -z $HOSTEDZONEID ]]; then
     #Multi-A record does not exist. We are the first in a new cluster
     PEERS=${IP},cockroach.node-2.${EC2_REGION}.${DOMAIN},cockroach.node-3.${EC2_REGION}.${DOMAIN}
     unset cockroach_list
-    cli53 rrcreate --replace "-x 300 $HOSTEDZONEID cockroach.${EC2_REGION} A $IP"
+    cli53 rrcreate --replace "$HOSTEDZONEID cockroach.${EC2_REGION} A $IP"
   else
     # see if our ip is in cockroach_list
     if [[ " ${cockroach_list[@]} " =~ "$IP" ]]; then
@@ -52,36 +52,37 @@ if [[ ! -z $HOSTEDZONEID ]]; then
       {% raw %}
       cockroach_list[${#cockroach_list[@]}]=$IP
       logger "cockroachdb config: list of ip addresses is ${cockroach_list[@]}"
-      for ip_addr in ${cockroach_list[@]}; 
-       do 
+      for ip_addr in ${cockroach_list[@]};
+       do
+        if [[ $ip_addr != "alias" ]]; then
          Ip_zone="$dns_resource 300 A $ip_addr"
          zone_array+=("$Ip_zone")
          #zone_array[${#zone_array[@]}]=$Ip_zone
-         {% endraw %}
+        fi
+      {% endraw %}
        done
     cli53 rrcreate --replace $HOSTEDZONEID "${zone_array[@]}"
     fi
   fi
-  cli53 rrcreate --replace "-x 300 $HOSTEDZONEID ${dns_resource} A ${IP}"
+  cli53 rrcreate --replace "$HOSTEDZONEID ${dns_resource} A ${IP}"
 else
   # I'm alone
   PEERS=${IP}
 fi
 
 # Add node from other 'datacenter' if defined
-if [[ ! -z CROSS_REGION_HOST ]]; then
+if [[ ! -z $CROSS_REGION_HOST ]]; then
    PEERS=${PEERS},${CROSS_REGION_HOST}
 fi
 
-echo $PEERS | grep '\/'
-if [[ $? -eq 0 ]]; then
+if [[  $PEERS == "\/" || -z $PEERS  ]]; then
   logger "cockroachdb config: Something has gone wrong, setting peers to local ip"
-  PEERS=${IP}
+  PEERS=${IP}  
 fi
 
 # update service with peer list
-logger "cockroachdb config: seting peers in start script to ${PEERS}"
 sed -i "s/PEERS/${PEERS}/" /etc/systemd/system/cockroachdb.service
+sed -i "s/ADDR/${IP}/" /etc/systemd/system/cockroachdb.service
 systemctl daemon-reload
 
 

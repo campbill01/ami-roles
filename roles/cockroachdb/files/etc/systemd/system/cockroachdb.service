@@ -4,7 +4,7 @@ After=instance_conf.service
 [Service]
 Type=notify
 WorkingDirectory=/var/lib/cockroach
-ExecStart=/usr/local/bin/cockroach start --insecure --join=PEERS --cache=.25 --max-sql-memory=.25
+ExecStart=/usr/local/bin/cockroach start --insecure --join=PEERS --cache=.25 --max-sql-memory=.25 --advertise-addr=ADDR
 TimeoutStopSec=60
 Restart=always
 RestartSec=10
