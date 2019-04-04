@@ -51,4 +51,9 @@ systemctl daemon-reload
 
 # Also create single route53 resource 
 logger "cockroachdb config: Done!"
+if [[ $ID > 1 ]]; then
+  let sleeptime=$ID*10
+  sleep $sleeptime
+fi
+
 systemctl start cockroachdb
