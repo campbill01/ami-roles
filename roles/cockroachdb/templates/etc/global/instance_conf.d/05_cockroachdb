@@ -29,50 +29,13 @@ fi
 
 EC2_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone/ | sed '$s/.$//')
 IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
-
-if [[ ! -z $HOSTEDZONEID ]]; then
-  # set or lookup and set domain
-  if [[ -z $DOMAIN ]]; then
-    DOMAIN=$(cli53 list | grep -A1 $HOSTEDZONEID | grep Name | awk '{ print $2 }')
-  fi
-  dns_resource="cockroach.node-${ID}.${EC2_REGION}"
-
-  declare -a cockroach_list=($(host cockroach.${EC2_REGION}.${DOMAIN} |  awk ' { print $4 }'))
-  if [[ $cockroach_list == 'found:' ]]; then
-    #Multi-A record does not exist. We are the first in a new cluster
-    PEERS=${IP},cockroach.node-2.${EC2_REGION}.${DOMAIN},cockroach.node-3.${EC2_REGION}.${DOMAIN}
-    unset cockroach_list
-    cli53 rrcreate --replace "$HOSTEDZONEID cockroach.${EC2_REGION} A $IP"
-  else
-    # see if our ip is in cockroach_list
-    if [[ " ${cockroach_list[@]} " =~ "$IP" ]]; then
-  	logger "cockroachdb config: Not adjusting A record for $dns_resource"
-    else
-      # add our ip to list
-      {% raw %}
-      cockroach_list[${#cockroach_list[@]}]=$IP
-      logger "cockroachdb config: list of ip addresses is ${cockroach_list[@]}"
-      for ip_addr in ${cockroach_list[@]};
-       do
-        if [[ $ip_addr != "alias" ]]; then
-         Ip_zone="$dns_resource 300 A $ip_addr"
-         zone_array+=("$Ip_zone")
-         #zone_array[${#zone_array[@]}]=$Ip_zone
-        fi
-      {% endraw %}
-       done
-    cli53 rrcreate --replace $HOSTEDZONEID "${zone_array[@]}"
-    fi
-  fi
-  cli53 rrcreate --replace "$HOSTEDZONEID ${dns_resource} A ${IP}"
-else
-  # I'm alone
-  PEERS=${IP}
-fi
+##
+# remove dns stuff
+PEERS=cockroachdb.node-1.${EC2_REGION}.${DOMAIN},cockroachdb.node-2.${EC2_REGION}.${DOMAIN},cockroachdb.node-3.${EC2_REGION}.${DOMAIN}
 
 # Add node from other 'datacenter' if defined
 if [[ ! -z $CROSS_REGION_HOST ]]; then
-   PEERS=${PEERS},${CROSS_REGION_HOST}
+   PEERS=${CROSS_REGION_HOST},${PEERS}
 fi
 
 if [[  $PEERS == "\/" || -z $PEERS  ]]; then
